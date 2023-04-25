@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Label } from 'components/ContactForm/ContactForm.styled';
 import { InputShort } from './Filter.styled';
 
-export function Filter({ name, onChange }) {
+export function Filter({ filter, onChange }) {
   const filterInputId = nanoid();
   return (
     <div>
@@ -14,7 +14,7 @@ export function Filter({ name, onChange }) {
         type="text"
         name="filter"
         placeholder="Enter your search"
-        value={name}
+        value={filter}
         onChange={onChange}
         id={filterInputId}
       />
