@@ -32,6 +32,7 @@ export function App() {
   }, []);
 
   useEffect(() => {
+    // try /catch are for localStorage errors
     try {
       localStorage.setItem(MY_CONTACTS, JSON.stringify(contacts));
     } catch (error) {

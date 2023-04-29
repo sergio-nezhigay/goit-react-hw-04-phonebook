@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import { nanoid } from 'nanoid';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Formik, ErrorMessage } from 'formik';
 import { object, string } from 'yup';
@@ -33,44 +32,44 @@ let schema = object({
     .required(),
 });
 
-export class ContactForm extends Component {
-  // nameInputID and numberInputID should be here
-  // for them to give different IDs for multiple instances
-  // using stateless components gives same ID
+let formCounter = 0;
 
-  nameInputID = nanoid();
-  numberInputID = nanoid();
-
-  render() {
-    const { onSubmit } = this.props;
-    return (
-      <Formik
-        initialValues={{ name: '', number: '' }}
-        validationSchema={schema}
-        onSubmit={onSubmit}
-      >
-        <StyledForm>
-          <Label htmlFor={this.nameInputID}>Name</Label>
-          <StyledField
-            type="text"
-            name="name"
-            placeholder="Enter the name"
-            id={this.nameInputID}
-          />
-          <ErrorMessage component={ErrorStyledMessage} name="name" />
-          <Label htmlFor={this.numberInputID}>Number</Label>
-          <StyledField
-            type="tel"
-            name="number"
-            placeholder="Enter the number"
-            id={this.numberInputID}
-          />
-          <ErrorMessage component={ErrorStyledMessage} name="number" />
-          <Button type="submit">Add Contact</Button>
-        </StyledForm>
-      </Formik>
-    );
-  }
+export function ContactForm(props) {
+  const { onSubmit } = props;
+  const nameInputID = `name-${formCounter}`;
+  const numberInputID = `number-${formCounter}`;
+  formCounter++;
+  console.log(
+    '🚀 ~ file: ContactForm.jsx:71 ~ ContactForm ~ formCounter:',
+    formCounter
+  );
+  return (
+    <Formik
+      initialValues={{ name: '', number: '' }}
+      validationSchema={schema}
+      onSubmit={onSubmit}
+    >
+      <StyledForm>
+        <Label htmlFor={nameInputID}>Name</Label>
+        <StyledField
+          type="text"
+          name="name"
+          placeholder="Enter the name"
+          id={nameInputID}
+        />
+        <ErrorMessage component={ErrorStyledMessage} name="name" />
+        <Label htmlFor={numberInputID}>Number</Label>
+        <StyledField
+          type="tel"
+          name="number"
+          placeholder="Enter the number"
+          id={numberInputID}
+        />
+        <ErrorMessage component={ErrorStyledMessage} name="number" />
+        <Button type="submit">Add Contact</Button>
+      </StyledForm>
+    </Formik>
+  );
 }
 
 ContactForm.propTypes = {
